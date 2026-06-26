@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sk-testing
+  namespace: test-ns-0001
+  labels:
+    app: sk-testing
+    managed-by: portainer-run
+  annotations:
+    portainer-run/git-target-id: eead49a5-8493-42dc-835f-73522560167c
+    portainer-run/git-branch: main
+    portainer-run/git-path: test-ns-0001/sk-testing.yaml
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sk-testing
+  template:
+    metadata:
+      labels:
+        app: sk-testing
+        managed-by: portainer-run
+    spec:
+      containers:
+        - name: app
+          image: nginx:latest
+          imagePullPolicy: Always
