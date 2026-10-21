@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: live-e3
+  namespace: hi
+  labels:
+    app: live-e3
+    managed-by: portainer-idp
+data:
+  n: 'live-e3'
