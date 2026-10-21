@@ -13,7 +13,7 @@ metadata:
     portainer-idp/edge-stack: 'true'
     portainer-idp/edge-group-ids: '3'
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: yay
