@@ -7,4 +7,4 @@ metadata:
     app: live-c1
     managed-by: portainer-idp
 data:
-  n: 'live-c1'
+  n: 'first'
