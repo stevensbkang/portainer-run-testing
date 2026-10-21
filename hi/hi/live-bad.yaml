@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: live-bad
+  namespace: hi
+  labels:
+    app: live-bad
+    managed-by: portainer-idp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: live-bad
+  template:
+    metadata:
+      labels:
+        app: live-bad
+        managed-by: portainer-idp
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.27
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {cpu: 100m, memory: 64Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: live-bad
+  namespace: hi
+  labels:
+    app: live-bad
+    managed-by: portainer-idp
+spec:
+  selector:
+    app: live-bad
+  ports:
+    - port: 80
+      targetPort: 80
+      name: Bad_Port_Name
