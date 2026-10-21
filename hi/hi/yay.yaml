@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yay
+  namespace: hi
+  labels:
+    app: yay
+    managed-by: portainer-idp
+  annotations:
+    portainer-idp/git-target-id: '3'
+    portainer-idp/git-branch: main
+    portainer-idp/git-path: hi/hi/yay.yaml
+    portainer-idp/edge-stack: 'true'
+    portainer-idp/edge-group-ids: '3'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yay
+  template:
+    metadata:
+      labels:
+        app: yay
+        managed-by: portainer-idp
+    spec:
+      containers:
+        - name: app
+          image: nginx:latest
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yay
+  namespace: hi
+  labels:
+    app: yay
+    managed-by: portainer-idp
+spec:
+  selector:
+    app: yay
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: yay
+  namespace: hi
+  labels:
+    app: yay
+    managed-by: portainer-idp
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: yay.portainercloud.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: yay
+                port:
+                  number: 80
