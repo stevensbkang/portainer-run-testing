@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: live-c2
+  namespace: hi
+  labels:
+    app: live-c2
+    managed-by: portainer-idp
+data:
+  n: 'live-c2'
