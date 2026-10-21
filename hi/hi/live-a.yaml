@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: live-a
+  namespace: hi
+  labels:
+    app: live-a
+    managed-by: portainer-idp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: live-a
+  template:
+    metadata:
+      labels:
+        app: live-a
+        managed-by: portainer-idp
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.27
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {cpu: 100m, memory: 64Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: live-a
+  namespace: hi
+  labels:
+    app: live-a
+    managed-by: portainer-idp
+spec:
+  selector:
+    app: live-a
+  ports:
+    - port: 80
+      targetPort: 80
