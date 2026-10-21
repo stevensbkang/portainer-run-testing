@@ -14,7 +14,7 @@ metadata:
     portainer-idp/edge-group-ids: '3'
     live-test/stamp: live-1792559333293
 spec:
-  replicas: 2
+  replicas: 0
   selector:
     matchLabels:
       app: yay
